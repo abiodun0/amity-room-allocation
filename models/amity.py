@@ -23,7 +23,7 @@ class Amity(object):
 				person.set_office(str(self))
 			else:
 				person.set_living(str(self))
-			print str(person.name) + " " + "Has been successfully added to " + str(self)
+			#print str(person.name) + " " + "Has been successfully added to " + str(self)
 		else:
 			print "No more spaces in this room"
 	def is_available(self):
