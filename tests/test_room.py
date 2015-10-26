@@ -1,6 +1,6 @@
 import unittest
-from amity import *
-from people import *
+from models.amity import *
+from models.people import *
 
 class RoomTests(unittest.TestCase):
 	def setUp(self):

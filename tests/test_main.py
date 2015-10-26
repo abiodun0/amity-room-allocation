@@ -1,7 +1,7 @@
 import unittest
-from ..models import Amity
-from main import Spaces
 from models.people import *
+from main import *
+from models.amity import *
 
 class TestOfMainSpacesAllocation(unittest.TestCase):
 	"""
