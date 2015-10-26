@@ -1,2 +1,6 @@
+# Python Compiled Files
 __pycache__/
 *.py[cod]
+
+# macbook dstore
+.DS_Store
