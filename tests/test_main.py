@@ -34,7 +34,7 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		Test for the randomly spaces method to make sure the offices length is up to 10
 		"""
 
-		self.andela.populate_spaces_with_rooms()
+		self.andela.populate_spaces_with_rooms(10)
 		self.assertEqual(len(self.andela.offices),10)
 		self.assertEqual(len(self.andela.livings),10)
 
@@ -89,11 +89,30 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 	def test_for_check_and_return_avaialable_space(self):
 		""" this check for return available spaces left in amity if there is any 
 		"""
-		self.andela.populate_spaces_with_rooms()
+		self.andela.populate_spaces_with_rooms(2)
 
 		office = self.andela.check_and_return_avaialable_space(self.andela.offices)
 
 		self.assertIsInstance(office,Amity)
+	def test_for_check_and_return_available_spaces_filled(self):
+		"""check for if room is filled"""
+		self.andela.populate_spaces_with_rooms(2)
+		self.andela.add_people_from_files("data/input.txt")
+		office = self.andela.check_and_return_avaialable_space(self.andela.offices)
+		self.assertNotIsInstance(office,Amity)
+		self.assertGreater(self.andela.filled_offices,0)
+		self.assertGreater(self.andela.filled_livings,0)
+	def test_for_get_all_rooms_and_occupants(self):
+		"""
+		Test for printable occupants of an office or living space
+		"""
+		all_spaces = self.andela.get_all_rooms_and_occupants()
+		office = self.andela.print_office_names()
+		living = self.andela.print_living_names()
+		self.assertIsNone(all_spaces)
+		self.assertIsNone(office)
+		self.assertIsNone(living)
+
 
 
 

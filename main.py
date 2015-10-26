@@ -54,11 +54,11 @@ class Spaces(object):
 		for person in pending_allocation:
 			self.add_people_to_room(person)
 
-	def populate_spaces_with_rooms(self):
+	def populate_spaces_with_rooms(self,populate_number=10):
 		""" This auto populates the offices and the living spaces in the andela classes
 		it poplates both the room and the office from 1 - 10 
 		"""
-		for i in range(1, 11):
+		for i in range(1, populate_number+1):
 			single_office = Office(str(i))
 			single_living = Living(str(i))
 			self.offices.append(single_office)
