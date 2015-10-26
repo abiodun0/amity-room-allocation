@@ -58,7 +58,7 @@ class Spaces(object):
 		""" This auto populates the offices and the living spaces in the andela classes
 		it poplates both the room and the office from 1 - 10 
 		"""
-		for i in range(1, 3):
+		for i in range(1, 11):
 			single_office = Office(str(i))
 			single_living = Living(str(i))
 			self.offices.append(single_office)

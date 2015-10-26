@@ -4,6 +4,16 @@ Checkpoint one python office allocation
 git clone this repo and enter into the folder that you can run python
 run ```python main.py```
 and use the following utility codes
+Running Tests 
+```
+python -m unittest tests.test_room
+python -m unittest tests.test_main
+python -m unittest tests.test_people
+
+using coverage
+
+coverage run  -m  tests.test_main
+```
 To initialize assign Spaces initalization to a variable like so
 ```
 andela = Spaces()

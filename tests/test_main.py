@@ -27,7 +27,7 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 
 		"""
 
-		lists = self.andela.read_input_files("input.txt")
+		lists = self.andela.read_input_files("data/input.txt")
 		self.assertGreater(len(lists),0)
 	def test_populate_spaces_with_rooms(self):
 		"""
@@ -44,7 +44,7 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		"""
 
 		self.andela.populate_spaces_with_rooms()
-		self.andela.add_people_from_files("input.txt")
+		self.andela.add_people_from_files("data/input.txt")
 		self.assertGreater(len(self.andela.allocated_employee_for_office),0)
 
 	def test_for_find_room_method(self):
@@ -71,7 +71,7 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		This checks that there is a message for unallocated people for offices
 		"""
 		self.andela.populate_spaces_with_rooms()
-		self.andela.add_people_from_files("input.txt")
+		self.andela.add_people_from_files("data/input.txt")
 		message = self.andela.get_unallocated_employee_for_office()
 
 		self.assertIsNotNone(message)
@@ -80,7 +80,7 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		This checks that there is a message for unallocated people for living space
 		"""
 		self.andela.populate_spaces_with_rooms()
-		self.andela.add_people_from_files("input.txt")
+		self.andela.add_people_from_files("data/input.txt")
 		message = self.andela.get_unallocated_employee_for_living()
 
 		self.assertIsNotNone(message)

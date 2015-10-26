@@ -1,5 +1,5 @@
 import unittest
-from people import *
+from models.people import *
 
 class PeopleTest(unittest.TestCase):
 	def setUp(self):
