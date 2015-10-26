@@ -55,6 +55,7 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 
 		self.andela.populate_spaces_with_rooms()
 		room = self.andela.find_room("office","2")
+		office = self.andela.find_room("living","2")
 		self.assertIsInstance(room,Amity)
 	def test_allocate_offices(self):
 		"""
@@ -72,7 +73,7 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		"""
 		self.andela.populate_spaces_with_rooms()
 		self.andela.add_people_from_files("input.txt")
-		message = self.andela.get_unallocated_employee_for_office
+		message = self.andela.get_unallocated_employee_for_office()
 
 		self.assertIsNotNone(message)
 	def test_for_get_unallocated_people_for_livings(self):
@@ -81,9 +82,10 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		"""
 		self.andela.populate_spaces_with_rooms()
 		self.andela.add_people_from_files("input.txt")
-		message = self.andela.get_unallocated_employee_for_living
+		message = self.andela.get_unallocated_employee_for_living()
 
 		self.assertIsNotNone(message)
+		
 
 	def test_for_check_and_return_avaialable_space(self):
 		""" this check for return available spaces left in amity if there is any 

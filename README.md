@@ -4,6 +4,7 @@ Checkpoint one python office allocation
 git clone this repo and enter into the folder that you can run python
 run ```python main.py```
 and use the following utility codes
+
 ```andela = Spaces()```
 ```andela.populate_spaces_with_rooms()```
 ```andela.add_people_from_files("input.txt")```
