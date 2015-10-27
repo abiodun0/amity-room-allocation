@@ -81,8 +81,8 @@ class Spaces(object):
 			# self.offices.append(single_office)
 			# self.livings.append(single_living)
 
-			self.add_more_office(str(i))
-			self.add_more_living(str(i))
+			self.add_more_office("ROOM " + str(i))
+			self.add_more_living("ROOM " + str(i))
 
 	def allocate_to_offices(self,person):
 		""" This is a utility method used to assign offices to fellows and staffs alike since each 
@@ -242,8 +242,15 @@ class Spaces(object):
 
 if __name__ == '__main__':
     andela = Spaces()
-    andela.populate_spaces_with_rooms(3)
+    andela.populate_spaces_with_rooms()
     andela.add_people_from_files("data/input.txt")
+    # andela.add_more_office("Jack Sparrow")
+    # andela.add_more_office("Jack Daniel")
+    # andela.add_more_office("Spencer Daniel")
+    # andela.add_more_living("Jack Sparrow")
+    # andela.add_more_living("Jack Daniel")
+    # andela.add_more_living("Spencer Daniel")
+    # andela.add_people_from_files("data/input.txt")
     andela.get_all_rooms_and_occupants()
 
    

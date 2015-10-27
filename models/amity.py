@@ -49,7 +49,7 @@ class Office(Amity):
 		""" Changes the way this room displays to the format
 		e.g ROOM 1 (Office)
 		"""
-		return "ROOM " + self.name + " (Office)"
+		return self.name + " (Office)"
 
 	
 
@@ -65,4 +65,4 @@ class Living(Amity):
 		""" Changes the way this room displays to the format
 		e.g ROOM 1 (Living)
 		"""
-		return "ROOM " + self.name + " (Living)"
+		return self.name + " (Living)"
