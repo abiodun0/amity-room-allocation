@@ -204,17 +204,17 @@ class Spaces(object):
 		"""
 		if space_type is "office":
 			for room in self.offices:
-				if number is room.name:
+				if number == room.name:
 					return room
 			for room in self.filled_offices:
-				if number is room.name:
+				if number == room.name:
 					return room
 		else:
 			for room in self.livings:
-				if number is room.name:
+				if number == room.name:
 					return room
 			for room in self.filled_livings:
-				if number is room.name:
+				if number == room.name:
 					return room
 
 	def get_unallocated_employee_for_office(self):
@@ -243,21 +243,22 @@ class Spaces(object):
 if __name__ == '__main__':
     andela = Spaces()
     andela.populate_spaces_with_rooms()
+    andela.add_more_office("Max")
+    andela.add_more_office("Undefined")
+    andela.add_more_office("Elixir")
+    andela.add_more_living("Tinker")
+    andela.add_more_living("Gulp")
+    andela.add_more_living("Compass")
     andela.add_people_from_files("data/input.txt")
-    # andela.add_more_office("Jack Sparrow")
-    # andela.add_more_office("Jack Daniel")
-    # andela.add_more_office("Spencer Daniel")
-    # andela.add_more_living("Jack Sparrow")
-    # andela.add_more_living("Jack Daniel")
-    # andela.add_more_living("Spencer Daniel")
-    # andela.add_people_from_files("data/input.txt")
+
+
     andela.get_all_rooms_and_occupants()
 
    
 
 
-    andela.get_total_occupants("office","2")
-    andela.get_info_of_worker("ANDREW PHILLIPS","office","2")
+    andela.get_total_occupants("office","ROOM 2")
+    andela.get_info_of_worker("ANDREW PHILLIPS","office","ROOM 2")
     print andela.get_unallocated_employee_for_office()
     print andela.get_unallocated_employee_for_living()
 

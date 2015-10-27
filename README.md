@@ -46,7 +46,7 @@ To Get the occupant in a particular living space or office you can do it like so
 ```
 andela.get_total_occupants(office_type,name_of_office)
 
-e.g andela.get_total_occupants("office","2")
+e.g andela.get_total_occupants("office","ROOM 2")
 
 ```
 To get info of workers in a particular room
