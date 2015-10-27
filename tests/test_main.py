@@ -21,6 +21,15 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		self.assertEqual(len(self.andela.offices),0)
 		self.assertEqual(len(self.andela.livings),0)
 
+	def test_add_more_living(self):
+		"""This checks for testing for adding more lving spaces"""
+		self.andela.add_more_living("Matrix")
+		self.assertEqual(len(self.andela.livings),1)
+	def test_add_more_office(self):
+		"""This checks for testing for adding more office spaces"""
+		self.andela.add_more_office("Joe")
+		self.assertEqual(len(self.andela.offices),1)
+
 	def test_read_input_files(self):
 		"""
 		Check if the input file returns the required list

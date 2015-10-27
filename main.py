@@ -53,16 +53,36 @@ class Spaces(object):
 		pending_allocation = self.read_input_files(path)
 		for person in pending_allocation:
 			self.add_people_to_room(person)
+	def add_more_office(self,room_name):
+		""" This adds more office 
+		@params office name
+		@return void
+		"""
+
+		room = Office(room_name)
+		self.offices.append(room)
+
+	def add_more_living(self,room_name):
+		""" This adds more living space
+		@params living room name
+		@return void
+		"""
+
+		room = Living(room_name)
+		self.livings.append(room)
 
 	def populate_spaces_with_rooms(self,populate_number=10):
 		""" This auto populates the offices and the living spaces in the andela classes
 		it poplates both the room and the office from 1 - 10 
 		"""
 		for i in range(1, populate_number+1):
-			single_office = Office(str(i))
-			single_living = Living(str(i))
-			self.offices.append(single_office)
-			self.livings.append(single_living)
+			# single_office = Office(str(i))
+			# single_living = Living(str(i))
+			# self.offices.append(single_office)
+			# self.livings.append(single_living)
+
+			self.add_more_office(str(i))
+			self.add_more_living(str(i))
 
 	def allocate_to_offices(self,person):
 		""" This is a utility method used to assign offices to fellows and staffs alike since each 
@@ -222,7 +242,7 @@ class Spaces(object):
 
 if __name__ == '__main__':
     andela = Spaces()
-    andela.populate_spaces_with_rooms()
+    andela.populate_spaces_with_rooms(3)
     andela.add_people_from_files("data/input.txt")
     andela.get_all_rooms_and_occupants()
 

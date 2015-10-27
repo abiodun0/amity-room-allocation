@@ -62,3 +62,21 @@ To get the information of all the unallocated employees you can run the followin
 print andela.get_unallocated_employee_for_office()
 print andela.get_unallocated_employee_for_living()
 ```
+
+To Add more living spaces or offices  you can pass the syntax in like so
+
+```
+andela.add_more_office("office_name")
+andela.add_more_living("living_space_name")
+```
+
+To randomly allocate people to different rooms and / offices you can pass in the syntax as shown below
+```
+person_information = {
+	'Name': "Name of Person",
+	'Position': "Staff or Fellow",
+	'Living' : #Optionnaly wants accomodation or not (Y or N)
+
+}
+andela.add_people_to_room(person_information)
+```
