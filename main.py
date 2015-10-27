@@ -76,10 +76,6 @@ class Spaces(object):
 		it poplates both the room and the office from 1 - 10 
 		"""
 		for i in range(1, populate_number+1):
-			# single_office = Office(str(i))
-			# single_living = Living(str(i))
-			# self.offices.append(single_office)
-			# self.livings.append(single_living)
 
 			self.add_more_office("ROOM " + str(i))
 			self.add_more_living("ROOM " + str(i))
