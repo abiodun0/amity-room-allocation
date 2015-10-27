@@ -243,11 +243,9 @@ class Spaces(object):
 if __name__ == '__main__':
     andela = Spaces()
     andela.populate_spaces_with_rooms()
-    andela.add_more_office("Max")
     andela.add_more_office("Undefined")
     andela.add_more_office("Elixir")
     andela.add_more_living("Tinker")
-    andela.add_more_living("Gulp")
     andela.add_more_living("Compass")
     andela.add_people_from_files("data/input.txt")
 

@@ -62,8 +62,8 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		"""
 
 		self.andela.populate_spaces_with_rooms()
-		room = self.andela.find_room("office","2")
-		office = self.andela.find_room("living","2")
+		room = self.andela.find_room("office","ROOM 2")
+		office = self.andela.find_room("living","ROOM 2")
 		self.assertIsInstance(room,Amity)
 	def test_allocate_offices(self):
 		"""
@@ -93,6 +93,44 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		message = self.andela.get_unallocated_employee_for_living()
 
 		self.assertIsNotNone(message)
+
+	def test_for_print_all_occupants_name_filled(self):
+		""" Test for print filled rooms names 
+		"""
+
+		self.andela.populate_spaces_with_rooms(2)
+		self.andela.add_people_from_files("data/input.txt")
+		
+		office = self.andela.print_office_names()
+		living = self.andela.print_living_names()
+		self.assertIsNone(office)
+		self.assertIsNone(living)
+		
+
+	def test_for_find_room_function(self):
+		"""test for find room when the room is filled
+		"""
+		self.andela.populate_spaces_with_rooms(2)
+		self.andela.add_people_from_files("data/input.txt")
+		
+		room_office = self.andela.find_room("office","ROOM 2")
+		room_living = self.andela.find_room("living","ROOM 2")
+
+		self.assertIsInstance(room_living,Living)
+		self.assertIsInstance(room_office,Office)
+
+
+	def test_for_print_all_occupants_name_not_filled(self):
+		""" Test for print not filled rooms names 
+		"""
+
+		self.andela.populate_spaces_with_rooms(15)
+		self.andela.add_people_from_files("data/input.txt")
+		office = self.andela.print_office_names()
+		living = self.andela.print_living_names()
+		self.assertIsNone(office)
+		self.assertIsNone(living)
+
 		
 
 	def test_for_check_and_return_avaialable_space(self):
