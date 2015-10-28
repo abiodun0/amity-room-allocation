@@ -1,4 +1,4 @@
-## Office Space Allocation (Test Coverage:83%)
+## Office Space Allocation [![Coverage Status](https://coveralls.io/repos/andela-ashuaib/amity-room-allocation/badge.svg?branch=master&service=github)](https://coveralls.io/github/andela-ashuaib/amity-room-allocation?branch=master)
 Checkpoint one python office allocation 
 ## How to use
 git clone this repo and enter into the folder that you can run python
