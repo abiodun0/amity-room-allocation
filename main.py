@@ -237,23 +237,24 @@ class Spaces(object):
 
 
 if __name__ == '__main__':
-    andela = Spaces()
-    andela.populate_spaces_with_rooms()
-    andela.add_more_office("Undefined")
-    andela.add_more_office("Elixir")
-    andela.add_more_living("Tinker")
-    andela.add_more_living("Compass")
-    andela.add_people_from_files("data/input.txt")
+	pass
+    # andela = Spaces()
+    # andela.populate_spaces_with_rooms()
+    # andela.add_more_office("Undefined")
+    # andela.add_more_office("Elixir")
+    # andela.add_more_living("Tinker")
+    # andela.add_more_living("Compass")
+    # andela.add_people_from_files("data/input.txt")
 
 
-    andela.get_all_rooms_and_occupants()
+    # andela.get_all_rooms_and_occupants()
 
    
 
 
-    andela.get_total_occupants("office","ROOM 2")
-    andela.get_info_of_worker("ANDREW PHILLIPS","office","ROOM 2")
-    print andela.get_unallocated_employee_for_office()
-    print andela.get_unallocated_employee_for_living()
+    # andela.get_total_occupants("office","ROOM 2")
+    # andela.get_info_of_worker("ANDREW PHILLIPS","office","ROOM 2")
+    # print andela.get_unallocated_employee_for_office()
+    # print andela.get_unallocated_employee_for_living()
 
 
