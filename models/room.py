@@ -1,6 +1,6 @@
 
 """This is the model class for Amity"""
-class Amity(object):
+class Room(object):
 
 	def __init__(self, name):
 		""" initialize the function with room name only
@@ -17,7 +17,7 @@ class Amity(object):
 		""" This utility method add person to the room
 		@params instace of People
 		"""
-		if self.is_available():
+		if not self.is_filled():
 			self.people.append(person)
 			if isinstance(self, Office):
 				person.set_office(str(self))
@@ -26,18 +26,18 @@ class Amity(object):
 			#print str(person.name) + " " + "Has been successfully added to " + str(self)
 		else:
 			print "No more spaces in this room"
-	def is_available(self):
+	def is_filled(self):
 		""" Checks if this room is avaialble 
 		"""
 		if len(self.people) < self.max_people + 1:
-			return True
-		else:
 			return False
+		else:
+			return True
 
 
 
 
-class Office(Amity):
+class Office(Room):
 	
 	def __init__(self,name,max_people=6):
 		"""This calls the super class to set the maximum number of people needed
@@ -54,7 +54,7 @@ class Office(Amity):
 	
 
 	
-class Living(Amity):
+class Living(Room):
 	def __init__(self,name,max_people=4):
 		"""This calls the super class to set the maximum number of people needed
 		for this room

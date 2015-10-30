@@ -35,6 +35,7 @@ class PeopleTest(unittest.TestCase):
 		self.fellow.set_living("Amity")
 		self.assertIs(self.fellow.living_name,"Amity")
 	def test_for_get_info(self):
+		
 		self.assertIsNone(self.fellow.get_info())
 		self.assertIsNone(self.staff.get_info())
 	

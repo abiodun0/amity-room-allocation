@@ -1,7 +1,7 @@
 import unittest
 from models.people import *
 from main import *
-from models.amity import *
+from models.room import *
 
 class TestOfMainSpacesAllocation(unittest.TestCase):
 	"""
@@ -64,7 +64,7 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		self.andela.populate_spaces_with_rooms()
 		room = self.andela.find_room("office","ROOM 2")
 		office = self.andela.find_room("living","ROOM 2")
-		self.assertIsInstance(room,Amity)
+		self.assertIsInstance(room,Room)
 	def test_allocate_offices(self):
 		"""
 		Test the llocate method of the Spaces class
@@ -112,7 +112,7 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		"""
 		self.andela.populate_spaces_with_rooms(2)
 		self.andela.add_people_from_files("data/input.txt")
-		
+
 		room_office = self.andela.find_room("office","ROOM 2")
 		room_living = self.andela.find_room("living","ROOM 2")
 
@@ -140,13 +140,13 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 
 		office = self.andela.check_and_return_avaialable_space(self.andela.offices)
 
-		self.assertIsInstance(office,Amity)
+		self.assertIsInstance(office,Room)
 	def test_for_check_and_return_available_spaces_filled(self):
 		"""check for if room is filled"""
 		self.andela.populate_spaces_with_rooms(2)
 		self.andela.add_people_from_files("data/input.txt")
 		office = self.andela.check_and_return_avaialable_space(self.andela.offices)
-		self.assertNotIsInstance(office,Amity)
+		self.assertNotIsInstance(office,Room)
 		self.assertGreater(self.andela.filled_offices,0)
 		self.assertGreater(self.andela.filled_livings,0)
 	def test_for_get_all_rooms_and_occupants(self):

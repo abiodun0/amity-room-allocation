@@ -1,5 +1,5 @@
 import unittest
-from models.amity import *
+from models.room import *
 from models.people import *
 
 class RoomTests(unittest.TestCase):
@@ -25,7 +25,7 @@ class RoomTests(unittest.TestCase):
 	def test_for_room_avaialble(self):
 		""" Test if room is not filled setUp
 		"""
-		self.assertIs(self.office.is_available(),True)
+		self.assertIs(self.office.is_not_filled(),True)
 	pass
 
 

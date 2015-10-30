@@ -1,5 +1,5 @@
 from models.people import *
-from models.amity import *
+from models.room import *
 import re
 from random import choice
 
@@ -7,9 +7,8 @@ from random import choice
 class Spaces(object):
 
 	def __init__(self):
-		"""initialzing global variables
-		offices,living spaces,allocated employees are all set to empty lists
-		it takes care of living spaces and offices that are filled as well
+		"""initialization of Offices and Living spaces with people to be allocated.
+		Setting the arrays of each space to be empty and to be filled.
 		"""
 		self.offices = []
 		self.filled_offices = []
@@ -31,15 +30,15 @@ class Spaces(object):
 		with open(path,"r") as input_file:
 			file_contents = input_file.read().splitlines()
 
-		for files in file_contents:
-			temp =  re.split(r'\t+', files.rstrip('\t'))
-			Person = {
+		for line in file_contents:
+			temp =  re.split(r'\t+', line.rstrip('\t'))
+			person = {
 			'Name': unicode(temp[0], errors='ignore'),
 			'Position': temp[1],
 			'Living': temp[2] if 2 < len(temp) else None
 			}
-			self.employees.append(Person)
-			new_employees.append(Person)
+			self.employees.append(person)
+			new_employees.append(person)
 
 		return new_employees
 
@@ -82,7 +81,7 @@ class Spaces(object):
 
 	def allocate_to_offices(self,person):
 		""" This is a utility method used to assign offices to fellows and staffs alike since each 
-		employee must have an office it is appended un the add_people to room method
+		employee must have an office it is appended in the add_people_to_room method
 		@params instace of Person
 		"""
 		office = self.check_and_return_avaialable_space(self.offices)
@@ -131,7 +130,7 @@ class Spaces(object):
 		"""
 		if space_type:
 			room = choice(space_type)
-			if room.is_available():
+			if not room.is_filled():
 				return room
 			else:
 				space_type.remove(room)
@@ -177,7 +176,7 @@ class Spaces(object):
 		for eg andela.get_total_occupants("office","2") gets the total number of offices in ROOM 2 (Office)
 		"""
 		room = self.find_room(space_type, name)
-		if isinstance(room,Amity):
+		if isinstance(room,Room):
 			if room.get_people():
 				print "\n" + str(room) + " Occupants"
 				print room.get_people()
@@ -237,24 +236,23 @@ class Spaces(object):
 
 
 if __name__ == '__main__':
-	pass
-    # andela = Spaces()
-    # andela.populate_spaces_with_rooms()
-    # andela.add_more_office("Undefined")
-    # andela.add_more_office("Elixir")
-    # andela.add_more_living("Tinker")
-    # andela.add_more_living("Compass")
-    # andela.add_people_from_files("data/input.txt")
+    andela = Spaces()
+    andela.populate_spaces_with_rooms()
+    andela.add_more_office("Undefined")
+    andela.add_more_office("Elixir")
+    andela.add_more_living("Tinker")
+    andela.add_more_living("Compass")
+    andela.add_people_from_files("data/input.txt")
 
 
-    # andela.get_all_rooms_and_occupants()
+    andela.get_all_rooms_and_occupants()
 
    
 
 
-    # andela.get_total_occupants("office","ROOM 2")
-    # andela.get_info_of_worker("ANDREW PHILLIPS","office","ROOM 2")
-    # print andela.get_unallocated_employee_for_office()
-    # print andela.get_unallocated_employee_for_living()
+    andela.get_total_occupants("office","ROOM 2")
+    andela.get_info_of_worker("ANDREW PHILLIPS","office","ROOM 2")
+    print andela.get_unallocated_employee_for_office()
+    print andela.get_unallocated_employee_for_living()
 
 
