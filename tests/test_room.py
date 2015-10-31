@@ -19,13 +19,13 @@ class RoomTests(unittest.TestCase):
 		""" Test for the add people functions
 		"""
 		person = Fellow("Abiodun")
-		self.office.add_people(person)
+		self.office.add_person(person)
 		self.assertGreater(len(self.office.people),0)
 
 	def test_for_room_avaialble(self):
 		""" Test if room is not filled setUp
 		"""
-		self.assertIs(self.office.is_not_filled(),True)
+		self.assertIs(self.office.is_filled(),False)
 	pass
 
 

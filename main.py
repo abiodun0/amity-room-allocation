@@ -1,124 +1,114 @@
-from models.people import *
+from models.person import *
 from models.room import *
 import re
 from random import choice
 
 
-class Spaces(object):
+class Building(object):
 
 	def __init__(self):
 		"""initialization of Offices and Living spaces with people to be allocated.
 		Setting the arrays of each space to be empty and to be filled.
 		"""
-		self.offices = []
-		self.filled_offices = []
-		self.livings = []
-		self.filled_livings = []
-		self.employees = []
-		self.allocated_employee_for_office = []
-		self.allocated_employee_for_living = []
-		self.unallocated_employee_living = []
-		self.unallocated_employee_office = []
+		self.spaces = {
+			'offices': [],
+			'livingspaces': []
+		}
 
-	def read_input_files(self,path):
+		self.filled_spaces = {
+			'offices': [],
+			'livingspaces': []
+		}
+
+		self.unallocated_people = {
+
+			'offices': [],
+			'livingspaces':[],
+
+		}
+		self.allocated_people = {
+		'offices':[],
+		'livingspaces':[]
+		}
+		self.employees = []
+
+	def add_people_from_files(self,path):
 		"""this utility function reads from the input file
 		strip the tabs seperate it into dictionaries and append it to the employess array
 		@params path to file
 		returns lists
 		"""
-		new_employees = []
+		offset = len(self.employees) - 1 if self.employees else 0
 		with open(path,"r") as input_file:
 			file_contents = input_file.read().splitlines()
 
 		for line in file_contents:
 			temp =  re.split(r'\t+', line.rstrip('\t'))
-			person = {
-			'Name': unicode(temp[0], errors='ignore'),
-			'Position': temp[1],
-			'Living': temp[2] if 2 < len(temp) else None
-			}
+
+			
+			person = Fellow(unicode(temp[0], errors='ignore')) if temp[1] == "FELLOW" else Staff(unicode(temp[0], errors='ignore'))
+
+			if 2 < len(temp):
+				person.set_livingspace(temp[2])
 			self.employees.append(person)
-			new_employees.append(person)
 
-		return new_employees
+		for person in self.employees[offset:]:
+			self.add_person_to_room(person)
 
-	def add_people_from_files(self,path):
-		"""
-		Get files from input sources and randomly assign them to room by iterating
-		through each of the files
-		@params path
-		@returns void
-		"""
-		pending_allocation = self.read_input_files(path)
-		for person in pending_allocation:
-			self.add_people_to_room(person)
-	def add_more_office(self,room_name):
+	
+	def add_office(self, room_name):
 		""" This adds more office 
 		@params office name
 		@return void
 		"""
 
 		room = Office(room_name)
-		self.offices.append(room)
+		self.spaces['offices'].append(room)
 
-	def add_more_living(self,room_name):
+	def add_livingspace(self, room_name):
 		""" This adds more living space
 		@params living room name
 		@return void
 		"""
 
 		room = Living(room_name)
-		self.livings.append(room)
+		self.spaces['livingspaces'].append(room)
 
-	def populate_spaces_with_rooms(self,populate_number=10):
+	def populate_spaces_with_rooms(self, populate_number=10):
 		""" This auto populates the offices and the living spaces in the andela classes
 		it poplates both the room and the office from 1 - 10 
 		"""
 		for i in range(1, populate_number+1):
 
-			self.add_more_office("ROOM " + str(i))
-			self.add_more_living("ROOM " + str(i))
+			self.add_office("ROOM " + str(i))
+			self.add_livingspace("ROOM " + str(i))
 
-	def allocate_to_offices(self,person):
-		""" This is a utility method used to assign offices to fellows and staffs alike since each 
-		employee must have an office it is appended in the add_people_to_room method
-		@params instace of Person
+	def allocate_to_space(self, person, space_type):
 		"""
-		office = self.check_and_return_avaialable_space(self.offices)
-		if isinstance(office, Office):
-			office.add_people(person)
-			self.allocated_employee_for_office.append(person)
-			
-		else:
-			self.unallocated_employee_office.append(person)
-			print str(office)
 
-	def add_people_to_room(self,worker):
+		"""
+		room = self.check_and_return_avaialable_space(space_type)
+		_class = Living if isinstance(room, Living) else Office
+		if isinstance(room, Room):
+			room.add_person(person)
+			self.allocated_people[space_type].append(person)
+		else:
+			print "{} Could not be allocated to a {}".format(person.name, space_type)
+			self.unallocated_people[space_type].append(person)
+
+	def add_person_to_room(self, person):
 		""" this is the function that gets called each time a fellow or a staff is to be randomly assigned to an office or a room
 		it made use of the recursive method check_if_room_is_filled()
 		@params person's dictionary, option only availale for fellows(Y for living space no for none)
 		(might change, thinking if dictionary should be an elegant way of executing this)
 		"""
-		if worker['Position'] == 'STAFF':
-			person = Staff(worker['Name'])
-			
-		elif worker['Position'] == 'FELLOW':
-			person = Fellow(worker['Name'])
-			
-		else:
-			return "Position Not Available at andela"
 
-		self.allocate_to_offices(person)
+		self.allocate_to_space(person, 'offices')
 
-		#this randomly assigns living spaces for fellows that have an option of living space
-		if worker['Position'] == 'FELLOW' and worker['Living'] == 'Y':
-			living = self.check_and_return_avaialable_space(self.livings)
-			if isinstance(living, Living):
-				living.add_people(person)
-				self.allocated_employee_for_living.append(person)
-			else:
-				print str(living)
-				self.unallocated_employee_living.append(person)
+
+		# This randomly assigns living spaces for fellows that have an option of living space
+		if isinstance(person,Fellow) and person.wants_livingspace is "Y":
+			self.allocate_to_space(person, "livingspaces")
 
 
 	def check_and_return_avaialable_space(self, space_type):
@@ -128,46 +118,33 @@ class Spaces(object):
 		@returns string if there isn't
 		@params space_type(offices or livings)
 		"""
-		if space_type:
-			room = choice(space_type)
+		if self.spaces[space_type]:
+			room = choice(self.spaces[space_type])
 			if not room.is_filled():
 				return room
 			else:
-				space_type.remove(room)
-				self.filled_offices.append(room) if space_type is self.offices else self.filled_livings.append(room)
+				self.spaces[space_type].remove(room)
+				self.filled_spaces[space_type].append(room)
 				return self.check_and_return_avaialable_space(space_type)
 		else:
-			return "All Offices are filled up" if space_type is self.offices else "All Living Spaces Are Filled Up"
+			return None;
 
-	def print_office_names(self):
-		"""get the number of people allocated to all the offices on a print_living_name
-		no @params needed
-		"""
-		if self.filled_offices:
-			for office in self.filled_offices:
-				print "\n" +str(office)
-				print office.get_people()
-		for office in self.offices:
-			print "\n" +str(office) 
-			print office.get_people()
-
-	def print_living_names(self):
+	def print_occupants_names(self, space_type):
 		"""get the number of people allocated to all the living on a print_living_name
 		no @params needed
 		"""
-		if self.filled_livings:
-			for living in self.filled_livings:
-				print  "\n" + str(living)
-				print living.get_people()
-		for living in self.livings:
-			print  "\n" + str(living)
-			print living.get_people()
+		for space in self.filled_spaces[space_type]:
+				print  "\n" + str(space)
+				print space.get_people()
+		for space in self.spaces[space_type]:
+			print  "\n" + str(space)
+			print space.get_people()
 
 	def get_all_rooms_and_occupants(self):
 		""" Returns all the occupants Room names Offices Names in Amity
 		"""
-		self.print_living_names()
-		self.print_office_names()
+		self.print_occupants_names("offices")
+		self.print_occupants_names("livingspaces")
 
 	def get_total_occupants(self, space_type, name):
 		""" This is to get the total occupants of a particular room
@@ -184,12 +161,15 @@ class Spaces(object):
 				print "No Occupant in this room"
 		else:
 			print "Invalid room name"
-	def get_info_of_worker(self,person_name,space_type,number):
+	
+	def get_info_of_worker(self, person_name, space_type, number):
+		"""
+
+		"""
 		room = self.find_room(space_type,number)
 		if room:
 			for person in room.people:
 				if person_name == person.name:
-
 					return person.get_info()
 
 	def find_room(self, space_type, number):
@@ -197,18 +177,10 @@ class Spaces(object):
 		@params space_type(office or living), room number
 		@returns instace of ROOM
 		"""
-		if space_type is "office":
-			for room in self.offices:
+		for room in self.spaces[space_type]:
 				if number == room.name:
 					return room
-			for room in self.filled_offices:
-				if number == room.name:
-					return room
-		else:
-			for room in self.livings:
-				if number == room.name:
-					return room
-			for room in self.filled_livings:
+		for room in self.filled_spaces[space_type]:
 				if number == room.name:
 					return room
 
@@ -218,7 +190,8 @@ class Spaces(object):
 		@returns strings of names / a string passing in the error
 		"""
 		print "\n" + "Unallocated people for office space"
-		return ', '.join([person.name for person in self.unallocated_employee_office]) if len(self.unallocated_employee_office) > 0 else  "No Unallocated Fellows\Staffs for Office Space"
+		return ', '.join([person.name for person in self.unallocated_people['offices']]) if len(self.unallocated_people['offices']) > 0 else  "No Unallocated Fellows\Staffs for Office Space"
+	
 	def get_unallocated_employee_for_living(self):
 		"""Returns the number of fellows that are yet to be allocated living spaces
 		@params none
@@ -226,32 +199,19 @@ class Spaces(object):
 
 		"""
 		print "\n" + "Unallocated people for living space"
-		return ', '.join([person.name for person in self.unallocated_employee_living]) if len(self.unallocated_employee_living) > 0 else  "No Unallocated Fellow\Staffs for Living Space"
-
-
-
-
-    	
-
-
+		return ', '.join([person.name for person in self.unallocated_people['livingspaces']]) if len(self.unallocated_people['livingspaces']) > 0 else  "No Unallocated Fellow\Staffs for Living Space"
 
 if __name__ == '__main__':
-    andela = Spaces()
+    andela = Building()
     andela.populate_spaces_with_rooms()
-    andela.add_more_office("Undefined")
-    andela.add_more_office("Elixir")
-    andela.add_more_living("Tinker")
-    andela.add_more_living("Compass")
+    andela.add_office("Undefined")
+    andela.add_office("Elixir")
+    andela.add_living("Tinker")
+    andela.add_living("Compass")
     andela.add_people_from_files("data/input.txt")
-
-
     andela.get_all_rooms_and_occupants()
-
-   
-
-
-    andela.get_total_occupants("office","ROOM 2")
-    andela.get_info_of_worker("ANDREW PHILLIPS","office","ROOM 2")
+    andela.get_total_occupants("offices","ROOM 2")
+    andela.get_info_of_worker("ANDREW PHILLIPS","offices","ROOM 2")
     print andela.get_unallocated_employee_for_office()
     print andela.get_unallocated_employee_for_living()
 

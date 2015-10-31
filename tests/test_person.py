@@ -1,5 +1,5 @@
 import unittest
-from models.people import *
+from models.person import *
 
 class PeopleTest(unittest.TestCase):
 	def setUp(self):
@@ -25,7 +25,7 @@ class PeopleTest(unittest.TestCase):
 		"""
 		Test for init function with fellow
 		"""
-		self.assertIs(self.fellow.living_name,"unallocated")
+		self.assertIsNone(self.fellow.living_name)
 
 	def test_for_set_living_for_fellow_class(self):
 		"""
@@ -35,7 +35,7 @@ class PeopleTest(unittest.TestCase):
 		self.fellow.set_living("Amity")
 		self.assertIs(self.fellow.living_name,"Amity")
 	def test_for_get_info(self):
-		
+
 		self.assertIsNone(self.fellow.get_info())
 		self.assertIsNone(self.staff.get_info())
 	
