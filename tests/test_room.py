@@ -1,6 +1,6 @@
 import unittest
 from models.room import *
-from models.people import *
+from models.person import *
 
 class RoomTests(unittest.TestCase):
 	def setUp(self):

@@ -19,7 +19,7 @@ class Person(object):
 
 class Fellow(Person):
 
-    def __init__(self, name, living_name=None,wants_livingspace="N"):
+    def __init__(self, name,wants_livingspace="N",living_name=None):
         """
         This calls the super class to set the maximum number of people needed
         for this office
