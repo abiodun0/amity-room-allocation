@@ -27,15 +27,15 @@ class Building(object):
 
 		}
 		self.allocated_people = {
-		'offices':[],
-		'livingspaces':[]
+			'offices':[],
+			'livingspaces':[]
 		}
 		self.employees = []
 
 	def add_people_from_files(self,path):
 		"""
 		This utility function reads from the input file
-		strip the tabs seperate 
+		strip the tabs seperately into a list
 		@params path to file
 
 		"""
@@ -195,7 +195,8 @@ class Building(object):
 					return person.get_info()
 
 	def find_room(self, space_type, number):
-		""" This is a utility function to get a particular room properties in amity
+		""" 
+		This is a utility function to get a particular room properties in amity
 		@params space_type(office or living), room number
 		@returns instace of ROOM
 		"""
@@ -207,7 +208,8 @@ class Building(object):
 					return room
 
 	def get_unallocated_employee_for_office(self):
-		""" Get the number of people that are yet to be allocated to an office
+		""" 
+		Get the number of people that are yet to be allocated to an office
 		@params none
 		@returns strings of names / a string passing in the error
 		"""
