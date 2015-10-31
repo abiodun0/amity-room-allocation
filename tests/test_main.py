@@ -120,7 +120,16 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		
 		self.assertIsNone(office)
 
+	def test_for_add_new_employee(self):
+		""" 
+		Test for add new employee
+		"""
+		biodun = self.andela.add_new_employee("Abiodun Shuaib","FELLOW","Y")
 		
+		self.assertIsInstance(biodun,Fellow)
+
+		
+
 
 	def test_for_check_and_return_avaialable_space(self):
 		""" this check for return available spaces left in amity if there is any 

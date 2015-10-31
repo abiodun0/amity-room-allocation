@@ -74,19 +74,17 @@ print andela.get_unallocated_employee_for_living()
 To add more offices or more living spaces. You can pass the parameters in like so
 
 ```python
-andela.add_more_office("office_name")
-andela.add_more_living("living_space_name")
+andela.add_office("office_name")
+andela.add_livingspace("living_space_name")
 ```
 
 To randomly allocate people to different rooms and / offices you can pass in the syntax as shown below
 
-The person's information should be passed in a dictionary format
+The person is first passed as an employee which returns either a staff or a fellow object
+Then the utility function of add_people_to_room is called like so
 
 ```python
-person_information = {
-	'Name': "Name of Person",
-	'Position': "Staff or Fellow",
-	'Living' : #Optionnaly wants accomodation or not (Y or N)
-}
-andela.add_people_to_room(person_information)
+biodun = andela.add_new_employee("Abiodun Shuaib","FELLOW","Y")
+jacob = andela.add_new_employee("Jacob Filter","STAFF")
+andela.add_people_to_room(biodun)
 ```

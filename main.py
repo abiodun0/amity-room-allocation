@@ -33,10 +33,12 @@ class Building(object):
 		self.employees = []
 
 	def add_people_from_files(self,path):
-		"""this utility function reads from the input file
+		"""
+		This utility function reads from the input file
 		strip the tabs seperate it into dictionaries and append it to the employess array
 		@params path to file
-		returns lists
+		calls the function add to room
+
 		"""
 		offset = len(self.employees) - 1 if self.employees else 0
 		with open(path,"r") as input_file:
@@ -44,20 +46,28 @@ class Building(object):
 
 		for line in file_contents:
 			temp =  re.split(r'\t+', line.rstrip('\t'))
-
-			
-			person = Fellow(unicode(temp[0], errors='ignore')) if temp[1] == "FELLOW" else Staff(unicode(temp[0], errors='ignore'))
-
-			if 2 < len(temp):
-				person.set_livingspace(temp[2])
+			args = tuple(temp)
+			person = self.add_new_employee(*args)
 			self.employees.append(person)
 
 		for person in self.employees[offset:]:
 			self.add_person_to_room(person)
 
 	
+	def add_new_employee(self, name, position, wants_livingspace="N"):
+		"""
+		This is a new utility method used to add new emplyee
+		@params name, position, and an optional parameter of having a living space or not
+		@returns an instance of person
+		"""
+		person = Fellow(unicode(name, errors='ignore')) if position == "FELLOW" else Staff(unicode(name, errors='ignore'))
+		if isinstance(person,Fellow):
+			person.set_livingspace(wants_livingspace)
+		return person
+
 	def add_office(self, room_name):
-		""" This adds more office 
+		""" 
+		This adds more office 
 		@params office name
 		@return void
 		"""
@@ -66,17 +76,21 @@ class Building(object):
 		self.spaces['offices'].append(room)
 
 	def add_livingspace(self, room_name):
-		""" This adds more living space
+		""" 
+		This adds more living space
 		@params living room name
 		@return void
+
 		"""
 
 		room = Living(room_name)
 		self.spaces['livingspaces'].append(room)
 
 	def populate_spaces_with_rooms(self, populate_number=10):
-		""" This auto populates the offices and the living spaces in the andela classes
+		""" 
+		This auto populates the offices and the living spaces in the andela classes
 		it poplates both the room and the office from 1 - 10 
+
 		"""
 		for i in range(1, populate_number+1):
 
@@ -85,7 +99,7 @@ class Building(object):
 
 	def allocate_to_space(self, person, space_type):
 		"""
-
+		Allocate employees to spaces either offices or living spaces
 		"""
 		room = self.check_and_return_avaialable_space(space_type)
 		_class = Living if isinstance(room, Living) else Office
@@ -97,10 +111,10 @@ class Building(object):
 			self.unallocated_people[space_type].append(person)
 
 	def add_person_to_room(self, person):
-		""" this is the function that gets called each time a fellow or a staff is to be randomly assigned to an office or a room
+		""" 
+		This is the function that gets called each time a fellow or a staff is to be randomly assigned to an office or a room
 		it made use of the recursive method check_if_room_is_filled()
-		@params person's dictionary, option only availale for fellows(Y for living space no for none)
-		(might change, thinking if dictionary should be an elegant way of executing this)
+		@params person's Object, 
 		"""
 
 		self.allocate_to_space(person, 'offices')
@@ -112,10 +126,11 @@ class Building(object):
 
 
 	def check_and_return_avaialable_space(self, space_type):
-		""" This is a recursive function to randomly allocate living space and offices for staffs and fellows alike 
+		"""
+		 This is a recursive function to randomly allocate living space and offices for staffs and fellows alike 
 		This append filled rooms to self.filled_offices or self.filled_livings respectively
 		@returns instace of Office or Living if there are spaces left
-		@returns string if there isn't
+		@returns NoneType if there isn't
 		@params space_type(offices or livings)
 		"""
 		if self.spaces[space_type]:
@@ -130,8 +145,10 @@ class Building(object):
 			return None;
 
 	def print_occupants_names(self, space_type):
-		"""get the number of people allocated to all the living on a print_living_name
+		"""
+		Get the name of people allocated to all the living on a print_living_name
 		no @params needed
+
 		"""
 		for space in self.filled_spaces[space_type]:
 				print  "\n" + str(space)
@@ -141,16 +158,19 @@ class Building(object):
 			print space.get_people()
 
 	def get_all_rooms_and_occupants(self):
-		""" Returns all the occupants Room names Offices Names in Amity
+		""" 
+		Returns all the occupants Room names Offices Names in Amity
 		"""
 		self.print_occupants_names("offices")
 		self.print_occupants_names("livingspaces")
 
 	def get_total_occupants(self, space_type, name):
-		""" This is to get the total occupants of a particular room
+		""" 
+		This is to get the total occupants of a particular room
 		the params needed are the space_type which can either be offices or living space
 		Then the name of the room range from 1 - 10
 		for eg andela.get_total_occupants("office","2") gets the total number of offices in ROOM 2 (Office)
+
 		"""
 		room = self.find_room(space_type, name)
 		if isinstance(room,Room):
@@ -193,7 +213,8 @@ class Building(object):
 		return ', '.join([person.name for person in self.unallocated_people['offices']]) if len(self.unallocated_people['offices']) > 0 else  "No Unallocated Fellows\Staffs for Office Space"
 	
 	def get_unallocated_employee_for_living(self):
-		"""Returns the number of fellows that are yet to be allocated living spaces
+		"""
+		Returns the number of fellows that are yet to be allocated living spaces
 		@params none
 		@return string of names
 
@@ -202,17 +223,6 @@ class Building(object):
 		return ', '.join([person.name for person in self.unallocated_people['livingspaces']]) if len(self.unallocated_people['livingspaces']) > 0 else  "No Unallocated Fellow\Staffs for Living Space"
 
 if __name__ == '__main__':
-    andela = Building()
-    andela.populate_spaces_with_rooms()
-    andela.add_office("Undefined")
-    andela.add_office("Elixir")
-    andela.add_livingspace("Tinker")
-    andela.add_livingspace("Compass")
-    andela.add_people_from_files("data/input.txt")
-    andela.get_all_rooms_and_occupants()
-    andela.get_total_occupants("offices","ROOM 2")
-    andela.get_info_of_worker("ANDREW PHILLIPS","offices","ROOM 2")
-    print andela.get_unallocated_employee_for_office()
-    print andela.get_unallocated_employee_for_living()
+	pass
 
 
