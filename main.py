@@ -7,8 +7,8 @@ from random import choice
 class Building(object):
 
 	def __init__(self):
-		"""initialization of Offices and Living spaces with people to be allocated.
-		Setting the arrays of each space to be empty and to be filled.
+		"""
+		Initializing All global variables.
 		"""
 		self.spaces = {
 			'offices': [],
@@ -35,9 +35,8 @@ class Building(object):
 	def add_people_from_files(self,path):
 		"""
 		This utility function reads from the input file
-		strip the tabs seperate it into dictionaries and append it to the employess array
+		strip the tabs seperate 
 		@params path to file
-		calls the function add to room
 
 		"""
 		offset = len(self.employees) - 1 if self.employees else 0
@@ -47,6 +46,8 @@ class Building(object):
 		for line in file_contents:
 			temp =  re.split(r'\t+', line.rstrip('\t'))
 			args = tuple(temp)
+
+			#This returns an instance of a new employee
 			person = self.add_new_employee(*args)
 			self.employees.append(person)
 
@@ -184,6 +185,7 @@ class Building(object):
 	
 	def get_info_of_worker(self, person_name, space_type, number):
 		"""
+		This utitlity function gets the occupant of a particluar room
 
 		"""
 		room = self.find_room(space_type,number)
