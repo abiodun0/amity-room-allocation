@@ -9,6 +9,7 @@ class Building(object):
 	def __init__(self):
 		"""
 		Initializing All global variables.
+		
 		"""
 		self.spaces = {
 			'offices': [],
@@ -60,6 +61,7 @@ class Building(object):
 		This is a new utility method used to add new emplyee
 		@params name, position, and an optional parameter of having a living space or not
 		@returns an instance of person
+
 		"""
 		person = Fellow(unicode(name, errors='ignore')) if position == "FELLOW" else Staff(unicode(name, errors='ignore'))
 		if isinstance(person,Fellow):
@@ -71,6 +73,7 @@ class Building(object):
 		This adds more office 
 		@params office name
 		@return void
+
 		"""
 
 		room = Office(room_name)
@@ -108,14 +111,15 @@ class Building(object):
 			room.add_person(person)
 			self.allocated_people[space_type].append(person)
 		else:
-			print "{} Could not be allocated to a {}".format(person.name, space_type)
+			print "{} Could not be allocated to  {}".format(person.name, space_type)
 			self.unallocated_people[space_type].append(person)
 
 	def add_person_to_room(self, person):
 		""" 
 		This is the function that gets called each time a fellow or a staff is to be randomly assigned to an office or a room
 		it made use of the recursive method check_if_room_is_filled()
-		@params person's Object, 
+		@params person's Object
+
 		"""
 
 		self.allocate_to_space(person, 'offices')
@@ -133,6 +137,7 @@ class Building(object):
 		@returns instace of Office or Living if there are spaces left
 		@returns NoneType if there isn't
 		@params space_type(offices or livings)
+
 		"""
 		if self.spaces[space_type]:
 			room = choice(self.spaces[space_type])
