@@ -2,6 +2,7 @@ import unittest
 from models.person import *
 
 class PeopleTest(unittest.TestCase):
+	
 	def setUp(self):
 		""" Test data for the test
 		"""
@@ -34,7 +35,12 @@ class PeopleTest(unittest.TestCase):
 		"""
 		self.fellow.set_living("Amity")
 		self.assertIs(self.fellow.living_name,"Amity")
+	
 	def test_for_get_info(self):
+		"""
+
+		Test for getting employees information
+		"""
 
 		self.assertIsNone(self.fellow.get_info())
 		self.assertIsNone(self.staff.get_info())

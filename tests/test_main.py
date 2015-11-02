@@ -21,11 +21,12 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		self.assertEqual(len(self.andela.spaces['offices']),0)
 		self.assertEqual(len(self.andela.spaces['livingspaces']),0)
 
-	def test_add_more_living(self):
+	def test_add_living(self):
 		"""This checks for testing for adding more lving spaces"""
 		self.andela.add_livingspace("Matrix")
 		self.assertEqual(len(self.andela.spaces['livingspaces']),1)
-	def test_add_more_office(self):
+	
+	def test_add_office(self):
 		"""This checks for testing for adding more office spaces"""
 		self.andela.add_office("Joe")
 		self.assertEqual(len(self.andela.spaces['offices']),1)
@@ -57,6 +58,7 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		room = self.andela.find_room("offices","ROOM 2")
 		office = self.andela.find_room("livingspaces","ROOM 2")
 		self.assertIsInstance(room,Room)
+	
 	def test_allocate_offices(self):
 		"""
 		Test the llocate method of the Spaces class
@@ -76,6 +78,7 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		message = self.andela.get_unallocated_employee_for_office()
 
 		self.assertIsNotNone(message)
+	
 	def test_for_get_unallocated_people_for_livings(self):
 		"""
 		This checks that there is a message for unallocated people for living space

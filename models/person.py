@@ -33,7 +33,6 @@ class Fellow(Person):
         Sets the living room space for all the fellows that wants acoomodation
         """
         self.living_name = living_name
-
     def set_livingspace(self, wants_livingspace):
     	""" 
     	Sets if the fellow wants living space or not

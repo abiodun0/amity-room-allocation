@@ -9,7 +9,7 @@ class Building(object):
 	def __init__(self):
 		"""
 		Initializing All global variables.
-		
+
 		"""
 		self.spaces = {
 			'offices': [],
@@ -105,8 +105,7 @@ class Building(object):
 		"""
 		Allocate employees to spaces either offices or living spaces
 		"""
-		room = self.check_and_return_avaialable_space(space_type)
-		_class = Living if isinstance(room, Living) else Office
+		room = self.check_and_return_available_space(space_type)
 		if isinstance(room, Room):
 			room.add_person(person)
 			self.allocated_people[space_type].append(person)
@@ -130,7 +129,7 @@ class Building(object):
 			self.allocate_to_space(person, "livingspaces")
 
 
-	def check_and_return_avaialable_space(self, space_type):
+	def check_and_return_available_space(self, space_type):
 		"""
 		 This is a recursive function to randomly allocate living space and offices for staffs and fellows alike 
 		This append filled rooms to self.filled_offices or self.filled_livings respectively
@@ -146,7 +145,7 @@ class Building(object):
 			else:
 				self.spaces[space_type].remove(room)
 				self.filled_spaces[space_type].append(room)
-				return self.check_and_return_avaialable_space(space_type)
+				return self.check_and_return_available_space(space_type)
 		else:
 			return None;
 
