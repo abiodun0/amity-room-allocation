@@ -22,12 +22,16 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		self.assertEqual(len(self.andela.spaces['livingspaces']),0)
 
 	def test_add_living(self):
-		"""This checks for testing for adding more lving spaces"""
+		"""
+		This checks for testing for adding more lving spaces
+		"""
 		self.andela.add_livingspace("Matrix")
 		self.assertEqual(len(self.andela.spaces['livingspaces']),1)
 	
 	def test_add_office(self):
-		"""This checks for testing for adding more office spaces"""
+		"""
+		This checks for testing for adding more office spaces
+		"""
 		self.andela.add_office("Joe")
 		self.assertEqual(len(self.andela.spaces['offices']),1)
 
@@ -90,7 +94,8 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		self.assertIsNotNone(message)
 
 	def test_for_print_all_occupants_name_filled(self):
-		""" Test for print filled rooms names 
+		""" 
+		Test for print filled rooms names 
 		"""
 
 		self.andela.populate_spaces_with_rooms(2)
@@ -101,7 +106,8 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 		
 
 	def test_for_find_room_function(self):
-		"""test for find room when the room is filled
+		"""
+		Test for find room when the room is filled
 		"""
 		self.andela.populate_spaces_with_rooms(2)
 		self.andela.add_people_from_files("data/input.txt")
@@ -114,7 +120,8 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 
 
 	def test_for_print_all_occupants_name_not_filled(self):
-		""" Test for print not filled rooms names 
+		""" 
+		Test for print not filled rooms names 
 		"""
 
 		self.andela.populate_spaces_with_rooms(15)
@@ -135,7 +142,8 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 
 
 	def test_for_check_and_return_avaialable_space(self):
-		""" this check for return available spaces left in amity if there is any 
+		""" 
+		This check for return available spaces left in amity if there is any 
 		"""
 		self.andela.populate_spaces_with_rooms(2)
 
@@ -143,7 +151,9 @@ class TestOfMainSpacesAllocation(unittest.TestCase):
 
 		self.assertIsInstance(office,Room)
 	def test_for_check_and_return_available_spaces_filled(self):
-		"""check for if room is filled"""
+		"""
+		Check for if room is filled
+		"""
 		self.andela.populate_spaces_with_rooms(2)
 		self.andela.add_people_from_files("data/input.txt")
 		office = self.andela.check_and_return_avaialable_space("offices")
